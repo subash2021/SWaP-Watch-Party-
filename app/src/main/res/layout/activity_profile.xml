@@ -8,30 +8,6 @@
     tools:context=".ProfileActivity">
 
 
-    <!--    <Button-->
-    <!--        android:id="@+id/cameraBtn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="CAMERA"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.239"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.417" />-->
-
-    <!--    <Button-->
-    <!--        android:id="@+id/galleryBtn"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="GALLERY"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.489"-->
-    <!--        app:layout_constraintStart_toEndOf="@+id/cameraBtn"-->
-    <!--        app:layout_constraintTop_toTopOf="parent"-->
-    <!--        app:layout_constraintVertical_bias="0.418" />-->
-
     <ImageView
         android:id="@+id/myimageview"
         android:layout_width="225dp"
@@ -43,27 +19,6 @@
         app:layout_constraintVertical_bias="0.086"
         app:srcCompat="@drawable/ic_launcher_background"
         tools:ignore="VectorDrawableCompat" />
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView12"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="36dp"-->
-    <!--        android:text="Phone"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textView11"-->
-    <!--        tools:layout_editor_absoluteX="372dp" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textView13"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="TextView"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintHorizontal_bias="0.13"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textView12"-->
-    <!--        app:layout_constraintVertical_bias="0.142" />-->
 
     <Button
         android:id="@+id/changeprofile"
@@ -82,13 +37,13 @@
         android:id="@+id/name1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="340dp"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:text="  Name"
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.069"
+        app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -132,7 +87,7 @@
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.319"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email1" />
 

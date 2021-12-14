@@ -13,23 +13,29 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.codepath.rkpandey.SocialWatchParty.databinding.ActivityHomeBinding;
+import com.codepath.rkpandey.SocialWatchParty.fragments.chat_fragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends FragmentActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     NavigationView navigationView;
-
+    ActivityHomeBinding binding;
     String Fullname, Email, Phone;
     String searchInput, mRecyclerView, btnSearch;
     Button YoutubeButton;
-
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        //setContentView(R.layout.activity_home);
+        binding = ActivityHomeBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
 
         DrawerLayout drawerLayout = findViewById(R.id.drawerlayout);
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -48,36 +54,26 @@ public class HomeActivity extends FragmentActivity implements NavigationView.OnN
 
         ImageView youtubeImage = findViewById(R.id.youtubeImage);
 
-//       Button SignOutButton = findViewById(R.id.signOutButton);
-       //Button YouTubeButton = findViewById(R.id.youtubebtn);
-//        Button ProfileButton = findViewById(R.id.button_profile);
-//       SignOutButton.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               FirebaseAuth.getInstance().signOut();
-//               startActivity(new Intent(HomeActivity.this,MainActivity.class));
-//               finish();
-//           }
-//       });
-//       YouTubeButton.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View v) {
-//               startActivity(new Intent(HomeActivity.this, YouTubeMainActivity.class));
-//               finish();
-//           }
-//       });
-//       ProfileButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(HomeActivity.this, ProfileActivity.class));
-//                finish();
-//            }
-//        });
         youtubeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, YouTubeMainActivity.class));
                 finish();
+            }
+        });
+        binding.chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.container_home,new chat_fragment()).commit();
+            }
+
+        });
+        binding.addFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast TOAST = Toast.makeText(getApplicationContext(),"Feature Will Be Added In Future", Toast.LENGTH_LONG);
+                TOAST.setMargin(30,30);
+                TOAST.show();
             }
         });
    }
@@ -88,7 +84,7 @@ public class HomeActivity extends FragmentActivity implements NavigationView.OnN
             case R.id.menuProfile:
                 Intent intent = new Intent(HomeActivity.this, ProfileActivity.class);
                 intent.putExtra("Fullname", Fullname);
-                intent.putExtra("Email",Email);
+                intent.putExtra("Email",email);
                 intent.putExtra("Phone",Phone);
                 startActivity(intent);
                 break;

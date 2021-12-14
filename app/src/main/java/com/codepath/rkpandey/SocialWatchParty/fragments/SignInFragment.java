@@ -65,24 +65,29 @@ public class SignInFragment extends Fragment {
 
                 if(Email.isEmpty() & Password.isEmpty())
                 {
-                    Toast.makeText(getContext(), "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getContext(), "Email and Password cannot be empty", Toast.LENGTH_SHORT).show();
+                   signInEmail.setError("Enter your email");
+                   signInPassword.setError("Enter your password");
                     return;
                 }
 
                 if(Email.isEmpty())
                 {
-                    Toast.makeText(getContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                    signInEmail.setError("Enter your email");
                     return;
                 }
 
                 if(!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
                 {
-                    Toast.makeText(getContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+                    signInEmail.setError("Invalid email");
                     return;
                 }
                 if(Password.isEmpty())
                 {
-                    Toast.makeText(getContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show();
+                    signInPassword.setError("Enter your password");
                     return;
                 }
 

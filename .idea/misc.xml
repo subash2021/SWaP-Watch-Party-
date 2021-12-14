@@ -3,6 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/ic_baseline_message_24.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/password.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/profile_button.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/settings.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/settings_chat.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/small_chat.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/drawable/small_settings.xml" value="0.26458333333333334" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/activity_chat_display.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/activity_edit_profile.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/activity_home.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/activity_profile.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/chat_row.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/fragment_chat_fragment.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/receiver_layout.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/layout/sender_layout.xml" value="0.2484375" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/menu/navigation_menu.xml" value="0.12604166666666666" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1421875" />
+        <entry key="..\:/Testes/SWaP-Watch-Party-/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1421875" />
         <entry key="..\:/UTA/SWaP/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.22882882882882882" />
         <entry key="..\:/UTA/SWaP/app/src/main/res/drawable/cinemalayoutformain.xml" value="0.16447368421052633" />
         <entry key="..\:/UTA/SWaP/app/src/main/res/drawable/ic_launcher_background.xml" value="0.22882882882882882" />
@@ -49,7 +68,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

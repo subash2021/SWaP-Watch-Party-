@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -24,9 +25,8 @@ public class EditProfile extends AppCompatActivity {
 
     EditText profileFullName, profileEmail,profilePhone;
     Button saveBtn;
-    FirebaseAuth mAuth;
-    FirebaseFirestore fStore;
-    FirebaseUser user;
+    FirebaseAuth auth;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,55 +37,37 @@ public class EditProfile extends AppCompatActivity {
         String Fullname = data.getStringExtra("Fullname");
         String Email = data.getStringExtra("Email");
        String Phone = data.getStringExtra("Phone");
-        mAuth = FirebaseAuth.getInstance();
-        fStore = FirebaseFirestore.getInstance();
-        user = mAuth.getCurrentUser();
+
 
 
         profileFullName = findViewById(R.id.profileFullName);
         profileEmail = findViewById(R.id.profileEmailAddress);
         profilePhone = findViewById(R.id.profilePhoneNo);
         saveBtn = findViewById(R.id.saveProfileInfo);
+        database = FirebaseDatabase.getInstance();
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty()) {
+                if (profileFullName.getText().toString().isEmpty() || profileEmail.getText().toString().isEmpty()) {
                     // || profilePhone.getText().toString().isEmpty())
                     Toast.makeText(EditProfile.this, "One or many fields are empty", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                String email = profileEmail.getText().toString();
-                user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(@NonNull Void unused) {
-                        DocumentReference docRef = fStore.collection("users").document(user.getUid());
-                        Map<String,Object> edited = new HashMap<>();
-                        edited.put("Email", email);
-                        edited.put("fName",profileFullName.getText().toString());
-                        docRef.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(@NonNull Void unused) {
-                                Toast.makeText(EditProfile.this, "Information Updated", Toast.LENGTH_SHORT).show();
+                ///need to remove email update...authentication email not updating
 
-                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                            }
-                        });
-                       // Toast.makeText(EditProfile.this, "Email is changed sucessfully", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EditProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                String email = profileEmail.getText().toString();
+                String username = profileFullName.getText().toString();
+                HashMap<String, Object> obj = new HashMap<>();
+                obj.put("userName", username);
+                obj.put("email", email);
+                database.getReference().child("Users").child(FirebaseAuth.getInstance().getUid()).updateChildren(obj);
+
+                Intent intent = new Intent(EditProfile.this, ProfileActivity.class);
+                startActivity(intent);
             }
         });
 
-
-        profileFullName.setText(Fullname);
-        profileEmail.setText(Email);
-        profilePhone.setText(Phone);
     }
 }

@@ -15,6 +15,8 @@
         android:roundIcon="@drawable/cinema"
         android:supportsRtl="true"
         android:theme="@style/Theme.SWaP"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".EditProfile"
@@ -43,6 +45,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="true" />
+        <activity
+            android:name=".ChatDisplay"
+            android:exported="true"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

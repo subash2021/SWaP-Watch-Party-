@@ -1,13 +1,13 @@
 package com.codepath.rkpandey.SocialWatchParty.fragments;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.util.Patterns;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,28 +16,27 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.rkpandey.SocialWatchParty.HomeActivity;
+import com.codepath.rkpandey.SocialWatchParty.MainActivity;
 import com.codepath.rkpandey.SocialWatchParty.R;
+import com.codepath.rkpandey.SocialWatchParty.data.model.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class SignUpFragment extends Fragment {
-    public static final String TAG = "tag";
+public class    SignUpFragment extends Fragment {
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    DatabaseReference reference;
+
     private EditText FullName;
     private EditText SignUpEmail;
     private EditText signUpPassword;
     private EditText SignUpPasswordConfirm;
     private Button SignUpButton;
-    FirebaseFirestore fstore;
-    String userID;
+    private ProgressDialog progressDialogue;
     public SignUpFragment() {
         // Required empty public constructor
     }
@@ -48,78 +47,56 @@ public class SignUpFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         mAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
         FullName = view.findViewById(R.id.signUpName);
         SignUpEmail = view.findViewById(R.id.signUpEmail);
         signUpPassword = view.findViewById(R.id.signUpPassword);
         SignUpPasswordConfirm = view.findViewById(R.id.confirmPassword);
         SignUpButton = view.findViewById(R.id.signUpButton);
-        fstore = FirebaseFirestore.getInstance();
+        progressDialogue = new ProgressDialog(getContext());
+        progressDialogue.setTitle("Signing Up");
+        progressDialogue.setMessage("Please wait signing up");
 
         SignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String Uname =FullName.getText().toString();
                 String Email = SignUpEmail.getText().toString();
                 String Password = signUpPassword.getText().toString();
-                String fullname = FullName.getText().toString();
-
-                if(Email.isEmpty() & Password.isEmpty() & fullname.isEmpty())
-                {
-                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                String Confirm_pw = SignUpPasswordConfirm.getText().toString();
+                if(TextUtils.isEmpty(Uname)){
+                    FullName.setError("Please enter fullname");
+                    FullName.requestFocus();
                     return;
                 }
-
-                if(fullname.isEmpty())
-                {
-                    Toast.makeText(getContext(), "Fullname cannot be empty", Toast.LENGTH_SHORT).show();
+                else if(TextUtils.isEmpty(Email)){
+                    SignUpEmail.setError("Please enter Email");
+                    SignUpEmail.requestFocus();
                     return;
                 }
-
-                if(Email.isEmpty())
-                {
-                    Toast.makeText(getContext(), "Email cannot be empty", Toast.LENGTH_SHORT).show();
+                else if(TextUtils.isEmpty(Password) || Password.length()<6){
+                    signUpPassword.setError("Please re-enter password");
+                    signUpPassword.requestFocus();
                     return;
                 }
-
-                if(!Patterns.EMAIL_ADDRESS.matcher(Email).matches())
+               /* else if(Password != Confirm_pw)
                 {
-                    Toast.makeText(getContext(), "Invalid email", Toast.LENGTH_SHORT).show();
+                    SignUpPasswordConfirm.setError("Password did not match. Please re-enter");
+                    SignUpPasswordConfirm.requestFocus();
                     return;
-                }
-                if(Password.isEmpty())
-                {
-                    Toast.makeText(getContext(), "Password cannot be empty", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if(Password.length() < 6)
-                {
-                    Toast.makeText(getContext(), "Password cannot be less than 6 characters", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (signUpPassword != SignUpPasswordConfirm)
-                {
-                    Toast.makeText(getContext(), "Password does't match", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
+                }*/
+                progressDialogue.show();
                 mAuth.createUserWithEmailAndPassword(Email,Password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-
-
+                        progressDialogue.dismiss();
                         if(task.isSuccessful()){
-                            Toast.makeText(getContext(), "Account is Created Sucessfully", Toast.LENGTH_SHORT).show();
-                            userID = mAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fstore.collection("users").document(userID);
-                            Map<String,Object> user = new HashMap<>();
-                            user.put("fName", fullname);
-                            user.put("Email", Email);
-                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(@NonNull Void unused) {
-                                    Log.d(TAG, "Onsuccess: User Profile is Created for "+userID);
-                                }
-                            });
-                            Intent intent = new Intent(getContext(), HomeActivity.class);
+                            Users user = new Users(Uname,Email,Password);
+                            String id = task.getResult().getUser().getUid();
+                            database.getReference().child("Users").child(id).setValue(user);
+                            Toast.makeText(getContext(), "Account Creation Successful", Toast.LENGTH_SHORT).show();
+
+                            Intent intent = new Intent(getContext(), MainActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                             getActivity().finish();
